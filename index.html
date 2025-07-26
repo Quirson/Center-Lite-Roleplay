@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Center Lite Roleplay - Premium SA-MP Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#0f3af4',
+                        'secondary-blue': '#2563eb',
+                        'light-blue': '#3b82f6',
+                        'primary-green': '#00d084',
+                        'light-green': '#10f2a0',
+                        'accent-green': '#4ade80'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .poppins { font-family: 'Poppins', sans-serif; }
+        .inter { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f3af4 0%, #2563eb 50%, #00d084 100%);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: #34d399;
+        }
+        
+        .nav-link.active {
+            color: #34d399;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #34d399;
+        }
+        
+        .nav-link-white {
+            transition: all 0.3s ease;
+            position: relative;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .nav-link-white:hover {
+            color: #0f3af4;
+        }
+        
+        .nav-link-white.active {
+            color: #0f3af4;
+        }
+        
+        .nav-link-white.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #0f3af4;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+        }
+        
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #059669, #10b981);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen text-white poppins">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-gradient-to-r from-blue-50/95 to-green-50/95 backdrop-blur-md border-b border-blue-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-xl overflow-hidden border-2 border-primary-blue/30 bg-gray-100">
+                        <img src="Imagens/Logo.jpg" alt="Center Lite Roleplay Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h1 class="poppins text-xl font-bold text-gray-800">Center Lite</h1>
+                        <p class="text-xs text-primary-green">Roleplay Server</p>
+                    </div>
+                </div>
+                
+
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" onclick="showPage('home')" class="nav-link-white active">Home</a>
+                    <a href="#" onclick="showPage('rules')" class="nav-link-white">Rules</a>
+                    <a href="#" onclick="showPage('contact')" class="nav-link-white">Contact</a>
+                    <a href="#" onclick="showPage('staff')" class="nav-link-white">Staff</a>
+                    <a href="#" onclick="showPage('applications')" class="nav-link-white">Applications</a>
+                    <a href="#" onclick="showPage('discord-bots')" class="nav-link-white">Discord Bots</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-800">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                
+                <button onclick="showLoginMessage()" class="hidden md:block btn-primary px-6 py-2 rounded-lg font-semibold">
+                    Login
+                </button>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+
+                    <a href="#" onclick="showPage('home')" class="nav-link-white active py-2">Home</a>
+                    <a href="#" onclick="showPage('rules')" class="nav-link-white py-2">Rules</a>
+                    <a href="#" onclick="showPage('contact')" class="nav-link-white py-2">Contact</a>
+                    <a href="#" onclick="showPage('staff')" class="nav-link-white py-2">Staff</a>
+                    <a href="#" onclick="showPage('applications')" class="nav-link-white py-2">Applications</a>
+                    <a href="#" onclick="showPage('discord-bots')" class="nav-link-white py-2">Discord Bots</a>
+                    <button onclick="showLoginMessage()" class="btn-primary px-6 py-2 rounded-lg font-semibold mt-4 text-center w-full">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="page-section active min-h-screen pt-20">
+        <!-- Hero Section -->
+        <div class="min-h-screen flex items-center justify-center relative">
+            <div class="max-w-6xl mx-auto px-4 text-center">
+                <div class="floating-animation mb-8">
+                    <h1 class="poppins text-6xl md:text-8xl font-black mb-6">
+                        <span class="text-white">CENTER</span>
+                        <br>
+                        <span class="text-light-green">LITE RP</span>
+                    </h1>
+                </div>
+                
+                <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto inter">
+                    Experience premium roleplay in our state-of-the-art SA-MP server. Join hundreds of players in immersive storylines and professional gameplay.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+                    <button onclick="showPage('contact')" class="btn-primary px-10 py-4 rounded-xl text-lg font-bold">
+                        📞 Contact Us
+                    </button>
+                    <button onclick="showPage('rules')" class="btn-secondary px-10 py-4 rounded-xl text-lg font-bold">
+                        📋 View Rules
+                    </button>
+                </div>
+                
+                <!-- Live Statistics Dashboard -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="stats-counter mb-2">350+</div>
+                        <div class="text-blue-100 font-medium">Active Players</div>
+                        <div class="text-light-green text-sm mt-1">Peak: 420</div>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="stats-counter mb-2">99.9%</div>
+                        <div class="text-blue-100 font-medium">Server Uptime</div>
+                        <div class="text-light-green text-sm mt-1">24/7 Online</div>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="stats-counter mb-2">12+</div>
+                        <div class="text-blue-100 font-medium">Staff Members</div>
+                        <div class="text-light-green text-sm mt-1">Always Active</div>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="stats-counter mb-2">5★</div>
+                        <div class="text-blue-100 font-medium">Community Rating</div>
+                        <div class="text-light-green text-sm mt-1">Excellent</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="py-20">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="poppins text-4xl md:text-5xl font-bold mb-6 text-white">Why Choose Center Lite?</h2>
+                    <p class="text-xl text-blue-100 max-w-3xl mx-auto inter">
+                        Advanced features and professional management make us the premier SA-MP roleplay destination
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="w-16 h-16 bg-gradient-to-r from-primary-blue to-secondary-blue rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Advanced Security</h3>
+                        <p class="text-blue-100 inter">Military-grade anti-cheat system with real-time monitoring and instant response to violations</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="w-16 h-16 bg-gradient-to-r from-primary-green to-light-green rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17,12C17,14.42 15.28,16.44 13,16.9V21H11V16.9C8.72,16.44 7,14.42 7,12C7,9.58 8.72,7.56 11,7.1V3H13V7.1C15.28,7.56 17,9.58 17,12M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Premium Roleplay</h3>
+                        <p class="text-blue-100 inter">Immersive storylines, professional factions, and realistic gameplay mechanics for authentic experiences</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="w-16 h-16 bg-gradient-to-r from-secondary-blue to-light-blue rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">24/7 Support</h3>
+                        <p class="text-blue-100 inter">Professional staff team available around the clock to ensure smooth gameplay and resolve issues instantly</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="w-16 h-16 bg-gradient-to-r from-light-green to-accent-green rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M16,6L18.29,8.29L13.41,13.17L9.41,9.17L2,16.59L3.41,18L9.41,12L13.41,16L19.71,9.71L22,12V6H16Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">High Performance</h3>
+                        <p class="text-blue-100 inter">Optimized infrastructure ensuring minimal lag and maximum stability for all players worldwide</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="w-16 h-16 bg-gradient-to-r from-primary-blue to-primary-green rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Custom Systems</h3>
+                        <p class="text-blue-100 inter">Unique job systems, advanced economy, housing, and vehicle mechanics built specifically for our community</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl feature-card">
+                        <div class="w-16 h-16 bg-gradient-to-r from-light-blue to-light-green rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Active Community</h3>
+                        <p class="text-blue-100 inter">Vibrant Discord community with regular events, competitions, and constant player interaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rules Page -->
+    <section id="rules" class="page-section min-h-screen pt-20">
+        <div class="max-w-6xl mx-auto px-4 py-20">
+            <div class="text-center mb-16">
+                <h2 class="poppins text-4xl md:text-5xl font-bold mb-6 text-white">Server Rules</h2>
+                <p class="text-xl text-blue-100 max-w-3xl mx-auto inter">
+                    Follow these guidelines to ensure a fair and enjoyable experience for all players
+                </p>
+            </div>
+            
+            <div class="glass-card p-10 rounded-2xl">
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4 p-6 bg-white/5 rounded-xl">
+                        <div class="w-8 h-8 bg-primary-green rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <span class="text-white font-bold">1</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Respect & Conduct</h3>
+                            <p class="text-blue-100 inter">Be respectful to all players and staff members at all times. Harassment, discrimination, or toxic behavior will not be tolerated.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 p-6 bg-white/5 rounded-xl">
+                        <div class="w-8 h-8 bg-primary-blue rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <span class="text-white font-bold">2</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">No Cheating or Hacking</h3>
+                            <p class="text-blue-100 inter">Cheating, hacking, or using any third-party modifications is strictly prohibited and will result in immediate permanent ban.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 p-6 bg-white/5 rounded-xl">
+                        <div class="w-8 h-8 bg-light-green rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <span class="text-white font-bold">3</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Bug Abuse Prevention</h3>
+                            <p class="text-blue-100 inter">Bug abuse is not allowed. Report any bugs you find to staff immediately instead of exploiting them for personal gain.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 p-6 bg-white/5 rounded-xl">
+                        <div class="w-8 h-8 bg-secondary-blue rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <span class="text-white font-bold">4</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Roleplay Standards</h3>
+                            <p class="text-blue-100 inter">No DM (Deathmatch), RK (Revenge Kill), MG (Meta Gaming), or PG (Power Gaming). Maintain high roleplay standards at all times.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 p-6 bg-white/5 rounded-xl">
+                        <div class="w-8 h-8 bg-primary-green rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <span class="text-white font-bold">5</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Language Policy</h3>
+                            <p class="text-blue-100 inter">Use only English or Albanian in public chat. Private messages and faction chats may use other languages.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 p-6 bg-white/5 rounded-xl">
+                        <div class="w-8 h-8 bg-light-blue rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <span class="text-white font-bold">6</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">No Advertising</h3>
+                            <p class="text-blue-100 inter">Advertising other servers, communities, or external services is strictly forbidden and will result in immediate punishment.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 p-6 bg-white/5 rounded-xl">
+                        <div class="w-8 h-8 bg-accent-green rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <span class="text-white font-bold">7</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Staff Authority</h3>
+                            <p class="text-blue-100 inter">Follow the staff's instructions at all times. Arguing with or disrespecting staff members will result in severe consequences.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 p-6 bg-gradient-to-r from-primary-blue/20 to-primary-green/20 rounded-xl border border-light-green/30">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-3 text-light-green" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                        </svg>
+                        Important Notice
+                    </h3>
+                    <p class="text-blue-100 inter">
+                        Violation of any of these rules may result in warnings, temporary bans, or permanent bans depending on the severity. 
+                        Staff decisions are final. For appeals or questions, contact us through our Discord server.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page-section min-h-screen pt-20">
+        <div class="max-w-6xl mx-auto px-4 py-20">
+            <div class="text-center mb-16">
+                <h2 class="poppins text-4xl md:text-5xl font-bold mb-6 text-white">Get In Touch</h2>
+                <p class="text-xl text-blue-100 max-w-3xl mx-auto inter">
+                    Connect with our community and stay updated with the latest news and events
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Methods -->
+                <div class="space-y-8">
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-r from-primary-blue to-secondary-blue rounded-xl flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M22,4C22,2.89 21.1,2 20,2H4A2,2 0 0,0 2,4V16A2,2 0 0,0 4,18H18L22,22V4Z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Discord Server</h3>
+                                <p class="text-light-green">Join our active community</p>
+                            </div>
+                        </div>
+                        <p class="text-blue-100 inter mb-4">
+                            Connect with players, get support, and stay updated with server news in our official Discord server.
+                        </p>
+                        <a href="https://discord.gg/Jnk4gCQXj6" target="_blank" class="btn-primary px-6 py-3 rounded-lg font-semibold inline-block">
+                            Join Discord Server
+                        </a>
+                    </div>
+                    
+                    <!-- TikTok -->
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-r from-black to-gray-800 rounded-xl flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">TikTok</h3>
+                                <p class="text-light-green">Short videos and highlights</p>
+                            </div>
+                        </div>
+                        <p class="text-blue-100 inter mb-4">
+                            Follow us on TikTok for short gameplay clips, highlights, and behind-the-scenes content.
+                        </p>
+                        <a href="https://www.tiktok.com/@centerliteroleplay?_t=ZN-8yMFMJcuzvK&_r=1" target="_blank" class="btn-primary px-6 py-3 rounded-lg font-semibold inline-block">
+                            Follow on TikTok
+                        </a>
+                    </div>
+                    
+                    <!-- YouTube -->
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.07C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,14.19 21.84,15.8 21.56,16.83C21.31,17.73 20.73,18.31 19.83,18.56C19.36,18.69 18.5,18.78 17.18,18.84C15.88,18.91 14.69,18.94 13.59,18.94L12,19C7.81,19 5.2,18.84 4.17,18.56C3.27,18.31 2.69,17.73 2.44,16.83C2.31,16.36 2.22,15.73 2.16,14.93C2.09,14.13 2.06,13.44 2.06,12.84L2,12C2,9.81 2.16,8.2 2.44,7.17C2.69,6.27 3.27,5.69 4.17,5.44C4.64,5.31 5.5,5.22 6.82,5.16C8.12,5.09 9.31,5.06 10.41,5.06L12,5C16.19,5 18.8,5.16 19.83,5.44C20.73,5.69 21.31,6.27 21.56,7.17Z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">YouTube Channel</h3>
+                                <p class="text-light-green">Tutorials and highlights</p>
+                            </div>
+                        </div>
+                        <p class="text-blue-100 inter mb-4">
+                            Subscribe to our YouTube channel for tutorials, server highlights, and exclusive content.
+                        </p>
+                        <a href="https://www.youtube.com/@centerliteroleplay" target="_blank" class="btn-primary px-6 py-3 rounded-lg font-semibold inline-block">
+                            Subscribe on YouTube
+                        </a>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Email Contact</h3>
+                                <p class="text-light-green">Direct communication</p>
+                            </div>
+                        </div>
+                        <p class="text-blue-100 inter mb-4">
+                            Contact us directly via email for business inquiries, partnerships, or important matters.
+                        </p>
+                        <a href="mailto:centerliteroleplay@gmail.com" class="btn-primary px-6 py-3 rounded-lg font-semibold inline-block">
+                            Send Email
+                        </a>
+                    </div>
+                    
+                    <!-- Coming Soon Platforms -->
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-white mb-6">Coming Soon</h3>
+                        
+
+                        
+                        <div class="glass-card p-6 rounded-xl opacity-60">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-primary-green to-light-green rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2Z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-white">Telegram Channel</h4>
+                                    <p class="text-blue-200 text-sm">Updates and announcements</p>
+                                </div>
+                                <span class="text-light-green text-sm font-semibold">Soon</span>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-xl opacity-60">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-white">Instagram</h4>
+                                    <p class="text-blue-200 text-sm">Behind the scenes content</p>
+                                </div>
+                                <span class="text-light-green text-sm font-semibold">Soon</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold text-white mb-6">Send us a Message</h3>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-white font-semibold mb-2">Your Name</label>
+                            <input type="text" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:border-light-green" placeholder="Enter your name">
+                        </div>
+                        <div>
+                            <label class="block text-white font-semibold mb-2">Email Address</label>
+                            <input type="email" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:border-light-green" placeholder="Enter your email">
+                        </div>
+                        <div>
+                            <label class="block text-white font-semibold mb-2">Subject</label>
+                            <input type="text" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:border-light-green" placeholder="Message subject">
+                        </div>
+                        <div>
+                            <label class="block text-white font-semibold mb-2">Message</label>
+                            <textarea rows="5" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:border-light-green resize-none" placeholder="Your message here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-secondary w-full py-3 rounded-lg font-semibold">
+                            Send Message
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6 p-4 bg-light-green/10 border border-light-green/30 rounded-lg">
+                        <p class="text-light-green text-sm">
+                            <strong>Note:</strong> This is a demo contact form. For immediate support, please join our Discord server.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff Page -->
+    <section id="staff" class="page-section min-h-screen pt-20">
+        <div class="max-w-7xl mx-auto px-4 py-20">
+            <div class="text-center mb-16">
+                <h2 class="poppins text-4xl md:text-5xl font-bold mb-6 text-white">Our Professional Team</h2>
+                <p class="text-xl text-blue-100 max-w-4xl mx-auto inter">
+                    Meet the dedicated professionals who work tirelessly to maintain the highest standards of gameplay and community management. Our team is always online, ensuring 24/7 support and seamless server operation.
+                </p>
+            </div>
+            
+            <!-- Team Philosophy -->
+            <div class="glass-card p-8 rounded-2xl mb-16">
+                <div class="text-center">
+                    <h3 class="text-3xl font-bold text-white mb-6">How We Operate</h3>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-primary-blue to-secondary-blue rounded-xl mx-auto mb-4 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Always Online</h4>
+                            <p class="text-blue-100 inter">Our staff members maintain 24/7 presence to ensure immediate response to any issues or questions.</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-primary-green to-light-green rounded-xl mx-auto mb-4 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9,12L11,14L15,10L13.59,8.59L11,11.17L10.41,10.59L9,12M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Professional Standards</h4>
+                            <p class="text-blue-100 inter">We maintain the highest professional standards in all interactions and decision-making processes.</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-light-blue to-accent-green rounded-xl mx-auto mb-4 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Fair & Consistent</h4>
+                            <p class="text-blue-100 inter">All decisions are made fairly and consistently, ensuring equal treatment for all community members.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Server Developers -->
+            <div class="mb-16">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary-blue to-primary-green rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8,3A2,2 0 0,0 6,5V9A2,2 0 0,1 4,11H3V13H4A2,2 0 0,1 6,15V19A2,2 0 0,0 8,21H10V19H8V14A2,2 0 0,0 6,12A2,2 0 0,0 8,10V5H10V3M16,3A2,2 0 0,1 18,5V9A2,2 0 0,0 20,11H21V13H20A2,2 0 0,0 18,15V19A2,2 0 0,1 16,21H14V19H16V14A2,2 0 0,1 18,12A2,2 0 0,1 16,10V5H14V3"/>
+                            </svg>
+                        </div>
+                        <h3 class="poppins text-3xl font-bold text-white">Server Developers</h3>
+                    </div>
+                    <p class="text-light-green text-lg">The masterminds behind our technical excellence</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-2xl text-center feature-card relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <div class="w-8 h-8 bg-gradient-to-r from-primary-blue to-primary-green rounded-full flex items-center justify-center border-2 border-white">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8,3A2,2 0 0,0 6,5V9A2,2 0 0,1 4,11H3V13H4A2,2 0 0,1 6,15V19A2,2 0 0,0 8,21H10V19H8V14A2,2 0 0,0 6,12A2,2 0 0,0 8,10V5H10V3M16,3A2,2 0 0,1 18,5V9A2,2 0 0,0 20,11H21V13H20A2,2 0 0,0 18,15V19A2,2 0 0,1 16,21H14V19H16V14A2,2 0 0,1 18,12A2,2 0 0,1 16,10V5H14V3"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-32 h-32 bg-gradient-to-br from-primary-blue to-secondary-blue rounded-full mx-auto mb-6 overflow-hidden border-4 border-light-green/30">
+                            <img src="Imagens/Vito.png" alt="Vito" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-2">Thiago Fernández</h4>
+                        <p class="text-light-green mb-4 font-semibold">Lead Developer</p>
+                        <p class="text-blue-100 inter text-sm mb-4">Responsible for core server development and system architecture</p>
+                        <div class="flex justify-center space-x-2 mb-4">
+                            <span class="px-3 py-1 bg-primary-blue/30 rounded-full text-sm text-white">C++</span>
+                            <span class="px-3 py-1 bg-primary-green/30 rounded-full text-sm text-white">PAWN</span>
+                        </div>
+                        <a href="https://discord.com/users/v1toa" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            <span>v1toa</span>
+                        </a>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl text-center feature-card">
+                        <div class="w-32 h-32 bg-gradient-to-br from-primary-green to-light-green rounded-full mx-auto mb-6 overflow-hidden border-4 border-light-green/30">
+                            <img src="Imagens/Reek.gif" alt="Reekuuknow" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-2">Reek</h4>
+                        <p class="text-light-green mb-4 font-semibold">Founder</p>
+                        <p class="text-blue-100 inter text-sm mb-4">Server founder and visionary leader overseeing all operations</p>
+                        <div class="flex justify-center space-x-2 mb-4">
+                            <span class="px-3 py-1 bg-primary-blue/30 rounded-full text-sm text-white">Leadership</span>
+                            <span class="px-3 py-1 bg-primary-green/30 rounded-full text-sm text-white">Vision</span>
+                        </div>
+                        <a href="https://discord.com/users/rolannd007" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            <span>rolannd007</span>
+                        </a>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl text-center feature-card relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <div class="w-8 h-8 bg-gradient-to-r from-primary-blue to-primary-green rounded-full flex items-center justify-center border-2 border-white">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8,3A2,2 0 0,0 6,5V9A2,2 0 0,1 4,11H3V13H4A2,2 0 0,1 6,15V19A2,2 0 0,0 8,21H10V19H8V14A2,2 0 0,0 6,12A2,2 0 0,0 8,10V5H10V3M16,3A2,2 0 0,1 18,5V9A2,2 0 0,0 20,11H21V13H20A2,2 0 0,0 18,15V19A2,2 0 0,1 16,21H14V19H16V14A2,2 0 0,1 18,12A2,2 0 0,1 16,10V5H14V3"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-32 h-32 bg-gradient-to-br from-light-blue to-accent-green rounded-full mx-auto mb-6 overflow-hidden border-4 border-light-green/30">
+                            <img src="Imagens/Walter.png" alt="Walter White" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-2">Walter White</h4>
+                        <p class="text-light-green mb-4 font-semibold">Web Developer</p>
+                        <p class="text-blue-100 inter text-sm mb-4">Full-Stack and web development specialist</p>
+                        <div class="flex justify-center space-x-2 mb-4">
+                            <span class="px-3 py-1 bg-primary-blue/30 rounded-full text-sm text-white">HTML/CSS</span>
+                            <span class="px-3 py-1 bg-primary-green/30 rounded-full text-sm text-white">JavaScript</span>
+                        </div>
+                        <div class="space-y-2">
+                            <a href="https://discord.com/users/quirson_ngale" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                                </svg>
+                                <span>quirson_ngale</span>
+                            </a>
+                            <a href="https://quirson.github.io/Portfolio/#" target="_blank" class="btn-secondary px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                                </svg>
+                                <span>Portfolio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Server Management -->
+            <div class="mb-16">
+                <h3 class="poppins text-3xl font-bold text-center mb-12 text-white"> Server Management</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-2xl text-center feature-card">
+                        <div class="w-32 h-32 bg-gradient-to-br from-primary-blue to-secondary-blue rounded-full mx-auto mb-6 overflow-hidden border-4 border-light-green/30">
+                            <img src="Imagens/magnus.png" alt="Magnus Carlen" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-2">Magnus Carlen</h4>
+                        <p class="text-light-green mb-4 font-semibold">Community Manager</p>
+                        <p class="text-blue-100 inter text-sm mb-4">Manages community relations and player engagement</p>
+                        <div class="flex justify-center space-x-2 mb-4">
+                            <span class="px-3 py-1 bg-primary-blue/30 rounded-full text-sm text-white">Community</span>
+                            <span class="px-3 py-1 bg-primary-green/30 rounded-full text-sm text-white">Events</span>
+                        </div>
+                        <a href="https://discord.com/users/.qf2" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.30zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            <span>.qf2</span>
+                        </a>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl text-center feature-card">
+                        <div class="w-32 h-32 bg-gradient-to-br from-primary-green to-light-green rounded-full mx-auto mb-6 overflow-hidden border-4 border-light-green/30">
+                            <img src="Imagens/Kemo.gif" alt="Kemo Deep" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-2">Kemo Deep</h4>
+                        <p class="text-light-green mb-4 font-semibold">Chief Administrator</p>
+                        <p class="text-blue-100 inter text-sm mb-4">Head of administration team and rule enforcement</p>
+                        <div class="flex justify-center space-x-2 mb-4">
+                            <span class="px-3 py-1 bg-primary-blue/30 rounded-full text-sm text-white">Administration</span>
+                            <span class="px-3 py-1 bg-primary-green/30 rounded-full text-sm text-white">Enforcement</span>
+                        </div>
+                        <a href="https://discord.com/users/kemo_deep" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.30zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            <span>kemo_deep</span>
+                        </a>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl text-center feature-card">
+                        <div class="w-32 h-32 bg-gradient-to-br from-light-blue to-accent-green rounded-full mx-auto mb-6 overflow-hidden border-4 border-light-green/30">
+                            <img src="Imagens/Mike.png" alt="Mike Culler" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-2">Mike Culler</h4>
+                        <p class="text-light-green mb-4 font-semibold">Deputy Chief Administrator</p>
+                        <p class="text-blue-100 inter text-sm mb-4">Assistant administrator and player support specialist</p>
+                        <div class="flex justify-center space-x-2 mb-4">
+                            <span class="px-3 py-1 bg-primary-blue/30 rounded-full text-sm text-white">Support</span>
+                            <span class="px-3 py-1 bg-primary-green/30 rounded-full text-sm text-white">Moderation</span>
+                        </div>
+                        <a href="https://discord.com/users/m16.4" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            <span>m16.4</span>
+                        </a>
+                    </div>
+                    
+
+                </div>
+            </div>
+            
+            <!-- General Administrators -->
+            <div>
+                <h3 class="poppins text-3xl font-bold text-center mb-12 text-white"> General Administrators</h3>
+                <div class="grid md:grid-cols-2 gap-8 justify-center">
+                    <div class="glass-card p-8 rounded-2xl text-center feature-card mx-auto max-w-sm">
+                        <div class="w-32 h-32 bg-gradient-to-br from-primary-green to-accent-green rounded-full mx-auto mb-6 overflow-hidden border-4 border-light-green/30">
+                            <img src="Imagens/Younes.gif" alt="Erjus" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-2">Erjus</h4>
+                        <p class="text-light-green mb-4 font-semibold">General Administrator</p>
+                        <p class="text-blue-100 inter text-sm mb-4">Handles general administrative duties and player support</p>
+                        <div class="flex justify-center space-x-2 mb-4">
+                            <span class="px-3 py-1 bg-primary-blue/30 rounded-full text-sm text-white">General Admin</span>
+                            <span class="px-3 py-1 bg-primary-green/30 rounded-full text-sm text-white">Support</span>
+                        </div>
+                        <a href="https://discord.com/users/phuong_.11" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.30zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            <span>phuong_.11</span>
+                        </a>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl text-center feature-card mx-auto max-w-sm">
+                        <div class="w-32 h-32 bg-gradient-to-br from-secondary-blue to-light-blue rounded-full mx-auto mb-6 overflow-hidden border-4 border-light-green/30">
+                            <img src="Imagens/Blaze.png" alt="Blaze" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-2">Blaze</h4>
+                        <p class="text-light-green mb-4 font-semibold">Discord Developer</p>
+                        <p class="text-blue-100 inter text-sm mb-4">Discord monitoring and community management specialist</p>
+                        <div class="flex justify-center space-x-2 mb-4">
+                            <span class="px-3 py-1 bg-primary-blue/30 rounded-full text-sm text-white">Discord Moderator</span>
+                            <span class="px-3 py-1 bg-primary-green/30 rounded-full text-sm text-white">Discord</span>
+                        </div>
+                        <a href="https://discord.com/users/black_270" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.30zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            <span>black_270</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discord Bots Page -->
+    <section id="discord-bots" class="page-section min-h-screen pt-20">
+        <div class="max-w-7xl mx-auto px-4 py-20">
+            <div class="text-center mb-16">
+                <h2 class="poppins text-4xl md:text-5xl font-bold mb-6 text-white">Discord Bots</h2>
+                <p class="text-xl text-blue-100 max-w-4xl mx-auto inter">
+                    Our Discord server is powered by these amazing bots that enhance your experience with moderation, entertainment, and utility features.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Apollo -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Apollo</h3>
+                    <p class="text-blue-100 text-sm">Advanced moderation and server management</p>
+                </div>
+                
+                <!-- Appy -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Appy</h3>
+                    <p class="text-blue-100 text-sm">Application management system</p>
+                </div>
+                
+                <!-- Carl-bot -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Carl-bot</h3>
+                    <p class="text-blue-100 text-sm">Automoderation and custom commands</p>
+                </div>
+                
+                <!-- ChannelBot -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,7H13V9H11V7M11,11H13V17H11V11Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">ChannelBot</h3>
+                    <p class="text-blue-100 text-sm">Channel management and organization</p>
+                </div>
+                
+                <!-- Dyno -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Dyno</h3>
+                    <p class="text-blue-100 text-sm">Comprehensive server protection</p>
+                </div>
+                
+                <!-- Emoji.gg -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2C13.1,2 14,2.9 14,4C14,5.1 13.1,6 12,6C10.9,6 10,5.1 10,4C10,2.9 10.9,2 12,2M21,9V7L15,1H5C3.89,1 3,1.89 3,3V21A2,2 0 0,0 5,23H19A2,2 0 0,0 21,21V9M19,9H14V4H5V19L19,19V9Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Emoji.gg</h3>
+                    <p class="text-blue-100 text-sm">Custom emoji management</p>
+                </div>
+                
+                <!-- FlaviBot -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">FlaviBot</h3>
+                    <p class="text-blue-100 text-sm">Entertainment and fun commands</p>
+                </div>
+                
+                <!-- GiveawaysBot -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-pink-500 to-pink-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,3L2,12H5V20H19V12H22L12,3M12,8.75A2.25,2.25 0 0,1 14.25,11A2.25,2.25 0 0,1 12,13.25A2.25,2.25 0 0,1 9.75,11A2.25,2.25 0 0,1 12,8.75M7,15.25A1.25,1.25 0 0,1 8.25,16.5A1.25,1.25 0 0,1 7,17.75A1.25,1.25 0 0,1 5.75,16.5A1.25,1.25 0 0,1 7,15.25M17,15.25A1.25,1.25 0 0,1 18.25,16.5A1.25,1.25 0 0,1 17,17.75A1.25,1.25 0 0,1 15.75,16.5A1.25,1.25 0 0,1 17,15.25Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">GiveawaysBot</h3>
+                    <p class="text-blue-100 text-sm">Automated giveaway management</p>
+                </div>
+                
+                <!-- MEE6 -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">MEE6</h3>
+                    <p class="text-blue-100 text-sm">Leveling system and moderation</p>
+                </div>
+                
+                <!-- ProBot -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,7H13V9H11V7M11,11H13V17H11V11Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">ProBot</h3>
+                    <p class="text-blue-100 text-sm">Professional server management</p>
+                </div>
+                
+                <!-- Sapphire -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-blue-700 to-blue-800 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2L13.09,8.26L22,9L14.74,13.74L17.18,22L12,17.27L6.82,22L9.26,13.74L2,9L10.91,8.26L12,2Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Sapphire</h3>
+                    <p class="text-blue-100 text-sm">Advanced utility commands</p>
+                </div>
+                
+                <!-- Security -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-gray-700 to-gray-800 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Security</h3>
+                    <p class="text-blue-100 text-sm">Anti-raid and security features</p>
+                </div>
+                
+                <!-- Ticket Tool -->
+                <div class="glass-card p-6 rounded-2xl text-center feature-card">
+                    <div class="w-20 h-20 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Ticket Tool</h3>
+                    <p class="text-blue-100 text-sm">Support ticket system</p>
+                </div>
+            </div>
+            
+            <!-- Bot Information -->
+            <div class="mt-16 glass-card p-8 rounded-2xl">
+                <div class="text-center">
+                    <h3 class="text-3xl font-bold text-white mb-6">Why We Use These Bots</h3>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-primary-blue to-secondary-blue rounded-xl mx-auto mb-4 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Enhanced Security</h4>
+                            <p class="text-blue-100 inter">Multiple layers of protection against spam, raids, and malicious users</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-primary-green to-light-green rounded-xl mx-auto mb-4 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Better Experience</h4>
+                            <p class="text-blue-100 inter">Automated systems that make Discord interactions smooth and enjoyable</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-light-blue to-accent-green rounded-xl mx-auto mb-4 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">24/7 Automation</h4>
+                            <p class="text-blue-100 inter">Round-the-clock automated moderation and community management</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications Page -->
+    <section id="applications" class="page-section min-h-screen pt-20">
+        <div class="max-w-6xl mx-auto px-4 py-20">
+            <div class="text-center mb-16">
+                <h2 class="poppins text-4xl md:text-5xl font-bold mb-6 text-white">Applications Portal</h2>
+                <div id="greeting" class="text-xl text-light-green mb-6 font-semibold"></div>
+                <p class="text-xl text-blue-100 max-w-4xl mx-auto inter">
+                    Use this page to create tickets directly on our Discord server for gang leadership, support requests, and administrative applications. Our team will respond promptly to all submissions.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Complaint Against Administrator -->
+                <div class="glass-card p-8 rounded-2xl feature-card">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Complaint Against Administrator</h3>
+                        <p class="text-blue-100 inter">Report administrator misconduct or file formal complaints about staff behavior</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Detailed evidence required</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Screenshots or video proof</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Confidential investigation</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Fair review process</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://discord.gg/Jnk4gCQXj6" target="_blank" class="btn-primary w-full py-4 rounded-xl font-bold text-lg block text-center">
+                        File Administrator Complaint
+                    </a>
+                </div>
+                
+                <!-- Support Application -->
+                <div class="glass-card p-8 rounded-2xl feature-card">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-r from-primary-green to-light-green rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Support Request</h3>
+                        <p class="text-blue-100 inter">Get help with technical issues, account problems, or general server questions</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">24/7 support availability</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Fast response time</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Professional assistance</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Multiple languages supported</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://discord.gg/Jnk4gCQXj6" target="_blank" class="btn-secondary w-full py-4 rounded-xl font-bold text-lg block text-center">
+                        Request Support
+                    </a>
+                </div>
+                
+                <!-- IC Applications -->
+                <div class="glass-card p-8 rounded-2xl feature-card">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-r from-light-blue to-primary-blue rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">IC Applications</h3>
+                        <p class="text-blue-100 inter">Apply for in-character positions like jobs, factions, and special roles</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Police Department positions</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Medical team applications</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Business ownership</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Special roleplay positions</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://discord.gg/Jnk4gCQXj6" target="_blank" class="btn-primary w-full py-4 rounded-xl font-bold text-lg block text-center">
+                        Apply for IC Position
+                    </a>
+                </div>
+                
+                <!-- OOC Admin Applications -->
+                <div class="glass-card p-8 rounded-2xl feature-card">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-r from-accent-green to-primary-green rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">OOC Applications (Admins)</h3>
+                        <p class="text-blue-100 inter">Apply to join our administrative team and help maintain server quality</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Moderator positions</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Administrator roles</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Helper team positions</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-light-green rounded-full"></div>
+                            <span class="text-blue-100 text-sm">Specialized staff roles</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://discord.gg/Jnk4gCQXj6" target="_blank" class="btn-secondary w-full py-4 rounded-xl font-bold text-lg block text-center">
+                        Apply for Admin Position
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Important Notice -->
+            <div class="mt-12 glass-card p-8 rounded-2xl">
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center justify-center">
+                        <svg class="w-6 h-6 mr-3 text-light-green" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/>
+                        </svg>
+                        Application Guidelines
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6 text-left">
+                        <div>
+                            <h4 class="text-lg font-bold text-light-green mb-2">Before Applying:</h4>
+                            <ul class="text-blue-100 inter space-y-1 text-sm">
+                                <li>• Read all server rules thoroughly</li>
+                                <li>• Ensure you meet minimum requirements</li>
+                                <li>• Prepare detailed application responses</li>
+                                <li>• Have your Discord account ready</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-light-green mb-2">Application Process:</h4>
+                            <ul class="text-blue-100 inter space-y-1 text-sm">
+                                <li>• Click the application button above</li>
+                                <li>• Join our Discord server</li>
+                                <li>• Create a ticket in the appropriate channel</li>
+                                <li>• Wait for staff review and response</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-gradient-to-r from-gray-900 to-slate-900 border-t border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl overflow-hidden border-2 border-primary-blue/30 bg-gray-800">
+                    <img src="Imagens/Logo.jpg" alt="Center Lite Roleplay Logo" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h1 class="poppins text-lg font-bold text-white">Center Lite Roleplay</h1>
+                </div>
+            </div>
+            <p class="text-gray-400 text-sm mb-2">
+                All Rights Reserved © 2025 Center Lite Roleplay
+            </p>
+            <p class="text-gray-300 text-sm">
+                Developed by <a href="https://quirson.github.io/Portfolio/#" target="_blank" class="text-primary-green hover:text-light-green transition-colors duration-300 font-semibold">Walter White</a> - "Simplicity is the soul of efficiency"
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation for both white and regular nav links
+            const navLinks = document.querySelectorAll('.nav-link, .nav-link-white');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find and activate the clicked nav link
+            event.target.classList.add('active');
+            
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Login message function
+        function showLoginMessage() {
+            alert('Login System Still in Development - It will be announced on our Social Media when ready! Please join our Discord server for now.');
+        }
+
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+
+        // Dynamic greeting based on time
+        function updateGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting;
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = "Good Morning! Welcome to our Applications Portal";
+            } else if (hour >= 12 && hour < 18) {
+                greeting = "Good Afternoon! Welcome to our Applications Portal";
+            } else {
+                greeting = "Good Evening! Welcome to our Applications Portal";
+            }
+            
+            document.getElementById('greeting').textContent = greeting;
+        }
+
+        // Initialize greeting on page load
+        updateGreeting();
+        
+        // Update greeting every minute
+        setInterval(updateGreeting, 60000);
+
+        // Add some interactive effects
+        document.addEventListener('mousemove', function(e) {
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+                    card.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2) * 0.1}deg) rotateY(${(x - rect.width/2) * 0.1}deg) translateZ(10px)`;
+                } else {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9656c681056773d6',t:'MTc1MzU2MzA5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
